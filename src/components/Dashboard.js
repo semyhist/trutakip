@@ -18,6 +18,7 @@ const Dashboard = ({ userId, username, onLogout }) => {
 
   useEffect(() => {
     veriYukle()
+  // eslint-disable-next-line
   }, [userId]);
 
   // kullanıcı verisini firebase'den çek
