@@ -99,16 +99,11 @@ const Dashboard = ({ userId, username, onLogout }) => {
               width: 48, 
               height: 48, 
               borderRadius: 2, 
-              background: 'linear-gradient(135deg, #8b0000 0%, #5a0000 100%)',
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center',
-              color: 'white',
-              fontSize: '1.3rem',
-              fontWeight: 800,
-              boxShadow: '0 4px 12px rgba(139, 0, 0, 0.3)'
+              justifyContent: 'center'
             }}>
-              TRÜ
+              <img src="/trulogo.png" alt="TRÜ Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
             </Box>
             <Box>
               <Typography variant="h6" sx={{ color: theme.text.primary, fontWeight: 700, lineHeight: 1, fontSize: '1.1rem' }}>

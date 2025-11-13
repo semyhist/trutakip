@@ -132,18 +132,13 @@ const Login = ({ onLogin }) => {
             width: 80, 
             height: 80, 
             borderRadius: 3, 
-            background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: 'white',
-            fontSize: '2rem',
-            fontWeight: 700,
             mx: 'auto',
-            mb: 2,
-            boxShadow: '0 8px 25px rgba(25, 118, 210, 0.3)'
+            mb: 2
           }}>
-            <School sx={{ fontSize: 40 }} />
+            <img src="/trulogo.png" alt="TRÜ Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
           </Box>
           <Typography variant="h4" sx={{ fontWeight: 800, color: '#1a1a1a', mb: 1 }}>
             TRÜ Devamsızlık
