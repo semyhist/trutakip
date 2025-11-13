@@ -7,6 +7,7 @@ import InitialDataDialog from './InitialDataDialog';
 
 const Login = ({ onLogin }) => {
   var [kullaniciAdi, setKullaniciAdi] = useState('');
+  var [adSoyad, setAdSoyad] = useState('');
   var [sifre, setSifre] = useState('');
   const [kayitModu, setKayitModu] = useState(false);
   const [hata, setHata] = useState('');
@@ -20,6 +21,11 @@ const Login = ({ onLogin }) => {
     
     if (!kullaniciAdi || !sifre) {
       setHata('Kullanıcı adı ve şifre gerekli');
+      return;
+    }
+
+    if (kayitModu && !adSoyad) {
+      setHata('Ad soyad gerekli');
       return;
     }
 
@@ -58,7 +64,7 @@ const Login = ({ onLogin }) => {
         
         var kullaniciDoc = sonuc.docs[0];
         localStorage.setItem('currentUser', kullaniciDoc.id)
-        onLogin(kullaniciDoc.id, kullaniciAdi);
+        onLogin(kullaniciDoc.id, kullaniciDoc.data().displayName || kullaniciAdi);
       }
     } catch (err) {
       console.error('Hata:', err);
@@ -72,6 +78,7 @@ const Login = ({ onLogin }) => {
     try {
       await setDoc(doc(db, 'users', bekleyenId), {
         username: kullaniciAdi,
+        displayName: adSoyad,
         password: sifre,
         absences: devamsizlikVerisi,
         englishExempt: ingilizceMusaf,
@@ -80,7 +87,7 @@ const Login = ({ onLogin }) => {
       
       localStorage.setItem('currentUser', bekleyenId);
       setIlkVeriDialog(false);
-      onLogin(bekleyenId, kullaniciAdi);
+      onLogin(bekleyenId, adSoyad);
     } catch (err) {
       console.error('Kayıt hatası:', err);
       setHata('Kayıt tamamlanamadı. Tekrar deneyin.');
@@ -153,6 +160,31 @@ const Login = ({ onLogin }) => {
         )}
         
         <form onSubmit={formGonder}>
+          {kayitModu && (
+            <TextField
+              fullWidth
+              label="Ad Soyad"
+              value={adSoyad}
+              onChange={(e) => setAdSoyad(e.target.value)}
+              margin="normal"
+              required
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Person sx={{ color: '#1976d2' }} />
+                  </InputAdornment>
+                ),
+              }}
+              sx={{
+                '& .MuiOutlinedInput-root': {
+                  borderRadius: 2,
+                  '&:hover fieldset': { borderColor: '#1976d2' },
+                  '&.Mui-focused fieldset': { borderColor: '#1976d2' },
+                },
+                '& .MuiInputLabel-root.Mui-focused': { color: '#1976d2' },
+              }}
+            />
+          )}
           <TextField
             fullWidth
             label="Kullanıcı Adı"

@@ -47,7 +47,7 @@ function App() {
           const kullaniciDoc = await getDoc(doc(db, 'users', kayitliId));
           if (kullaniciDoc.exists()) {
             setKullanici(kayitliId);
-            setKullaniciAdi(kullaniciDoc.data().username);
+            setKullaniciAdi(kullaniciDoc.data().displayName || kullaniciDoc.data().username);
           } else {
             localStorage.removeItem('currentUser');
           }
