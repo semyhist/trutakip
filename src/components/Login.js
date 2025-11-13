@@ -141,7 +141,7 @@ const Login = ({ onLogin }) => {
             <img src="/trulogo.png" alt="TRÜ Logo" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
           </Box>
           <Typography variant="h4" sx={{ fontWeight: 800, color: '#1a1a1a', mb: 1 }}>
-            TRÜ Devamsızlık
+            TRÜ Takip
           </Typography>
           <Typography variant="body1" color="text.secondary" sx={{ fontWeight: 500 }}>
             Bilgisayar Mühendisliği
