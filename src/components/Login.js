@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box, TextField, Button, Typography, Paper, Alert, InputAdornment, IconButton } from '@mui/material';
-import { Visibility, VisibilityOff, Person, Lock, School } from '@mui/icons-material';
+import { Visibility, VisibilityOff, Person, Lock } from '@mui/icons-material';
 import { doc, setDoc, query, where, collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
 import InitialDataDialog from './InitialDataDialog';
