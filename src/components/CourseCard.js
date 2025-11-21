@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardContent, Typography, Switch, FormControlLabel, Box, IconButton, Paper } from '@mui/material';
+import { Card, CardContent, Typography, Switch, FormControlLabel, Box, IconButton, Paper, Button } from '@mui/material';
 import { Add, Remove, Schedule, TrendingUp, Warning, CheckCircle } from '@mui/icons-material';
 import { useTheme } from '../context/ThemeContext';
 import { dayNames } from '../data/courses';
@@ -88,7 +88,7 @@ const CourseCard = ({ courseKey, course, currentAbsence, onUpdate, isExempt, onT
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             {durumIkonu()}
             <Typography variant="body2" sx={{ fontWeight: 600, color: renk }}>
-              {isExempt ? 'Muaf' : currentAbsence >= course.limit ? 'Sınır Aşıldı!' : kalanHak <= 2 ? 'Dikkat!' : 'Güvenli'}
+              {isExempt ? 'Muaf' : currentAbsence > course.limit ? 'KALDINIZ!' : currentAbsence === course.limit ? 'Sınırdasınız!' : kalanHak <= 2 ? 'Dikkat!' : 'Güvenli'}
             </Typography>
           </Box>
         </Box>
@@ -134,105 +134,92 @@ const CourseCard = ({ courseKey, course, currentAbsence, onUpdate, isExempt, onT
               </Typography>
             </Paper>
 
-            <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
+            <Box sx={{ mb: 3 }}>
               <Paper 
                 elevation={0}
                 sx={{ 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  gap: 3, 
-                  p: 2, 
+                  p: 2.5, 
                   background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%)',
                   backdropFilter: 'blur(10px)',
                   border: `2px solid ${renk}30`,
-                  borderRadius: 5,
-                  boxShadow: `0 8px 32px ${renk}20`,
-                  transition: 'all 0.3s ease'
+                  borderRadius: 4,
+                  boxShadow: `0 8px 32px ${renk}20`
                 }}
               >
-                <IconButton 
-                  onClick={() => cikar(1)} 
-                  disabled={currentAbsence === 0} 
-                  sx={{ 
-                    width: 48,
-                    height: 48,
-                    background: theme.bg.paper,
-                    color: theme.text.primary,
-                    border: `2px solid ${theme.border}`,
-                    '&:hover': { 
-                      background: 'linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.15) 100%)',
-                      transform: 'scale(1.15) rotate(-90deg)',
-                      borderColor: 'rgba(255,255,255,0.4)',
-                      boxShadow: '0 8px 20px rgba(0,0,0,0.3)'
-                    }, 
-                    '&:disabled': { 
-                      opacity: 0.3,
-                      cursor: 'not-allowed'
-                    }, 
-                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
-                  }}
-                >
-                  <Remove sx={{ fontSize: 28 }} />
-                </IconButton>
-                
-                <Box 
-                  sx={{ 
-                    minWidth: 100, 
-                    textAlign: 'center', 
-                    py: 2, 
-                    px: 3,
-                    background: `linear-gradient(135deg, ${renk}20 0%, ${renk}10 100%)`,
-                    borderRadius: 3,
-                    border: `2px solid ${renk}40`,
-                    boxShadow: `inset 0 2px 10px ${renk}15`
-                  }}
-                >
-                  <Typography 
-                    variant="h3" 
+                <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
+                  <Box 
                     sx={{ 
-                      fontWeight: 800, 
-                      color: renk,
-                      lineHeight: 1,
-                      textShadow: `0 2px 10px ${renk}40`,
-                      fontSize: '2.5rem'
+                      textAlign: 'center', 
+                      py: 1.5, 
+                      px: 3,
+                      background: `linear-gradient(135deg, ${renk}20 0%, ${renk}10 100%)`,
+                      borderRadius: 3,
+                      border: `2px solid ${renk}40`
                     }}
                   >
-                    {currentAbsence}
-                  </Typography>
-                  <Typography 
-                    variant="caption" 
-                    sx={{ 
-                      color: theme.text.secondary, 
-                      fontWeight: 700,
-                      fontSize: '0.7rem',
-                      letterSpacing: 2,
-                      mt: 0.5,
-                      display: 'block'
-                    }}
-                  >
-                    SAAT
-                  </Typography>
+                    <Typography 
+                      variant="h4" 
+                      sx={{ 
+                        fontWeight: 800, 
+                        color: renk,
+                        lineHeight: 1
+                      }}
+                    >
+                      {currentAbsence}
+                    </Typography>
+                    <Typography 
+                      variant="caption" 
+                      sx={{ 
+                        color: theme.text.secondary, 
+                        fontWeight: 600,
+                        fontSize: '0.7rem'
+                      }}
+                    >
+                      SAAT
+                    </Typography>
+                  </Box>
                 </Box>
                 
-                <IconButton 
-                  onClick={() => ekle(1)} 
-                  sx={{ 
-                    width: 48,
-                    height: 48,
-                    background: `linear-gradient(135deg, ${renk} 0%, ${renk}dd 100%)`,
-                    color: 'white',
-                    border: `2px solid ${renk}`,
-                    boxShadow: `0 4px 15px ${renk}50`,
-                    '&:hover': { 
-                      background: `linear-gradient(135deg, ${renk}dd 0%, ${renk}bb 100%)`,
-                      transform: 'scale(1.15) rotate(90deg)',
-                      boxShadow: `0 12px 25px ${renk}60`
-                    },
-                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
-                  }}
-                >
-                  <Add sx={{ fontSize: 28 }} />
-                </IconButton>
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, justifyContent: 'center', mb: 2 }}>
+                  {dersProgrami().map((slot, idx) => (
+                    <Button
+                      key={idx}
+                      variant="contained"
+                      size="small"
+                      onClick={() => ekle(slot.saatSayisi)}
+                      sx={{ 
+                        minWidth: 80,
+                        background: `linear-gradient(135deg, ${renk} 0%, ${renk}dd 100%)`,
+                        '&:hover': { background: `linear-gradient(135deg, ${renk}dd 0%, ${renk}bb 100%)` }
+                      }}
+                    >
+                      {slot.gunAdi}
+                    </Button>
+                  ))}
+                </Box>
+                
+                <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1 }}>
+                  <IconButton 
+                    onClick={() => cikar(1)} 
+                    disabled={currentAbsence === 0} 
+                    sx={{ 
+                      width: 40,
+                      height: 40,
+                      background: theme.bg.paper,
+                      color: theme.text.primary,
+                      border: `1px solid ${theme.border}`,
+                      '&:hover': { 
+                        borderColor: renk,
+                        color: renk
+                      }, 
+                      '&:disabled': { 
+                        opacity: 0.3
+                      }
+                    }}
+                  >
+                    <Remove sx={{ fontSize: 20 }} />
+                  </IconButton>
+                </Box>
               </Paper>
             </Box>
 

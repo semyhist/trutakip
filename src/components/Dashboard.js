@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Box, AppBar, Toolbar, Typography, IconButton, Fab, Tabs, Tab } from '@mui/material';
-import { Logout, CalendarMonth, School, EventNote, Info, LightMode, DarkMode } from '@mui/icons-material';
+import { Box, AppBar, Toolbar, Typography, IconButton, Tabs, Tab } from '@mui/material';
+import { Logout, School, EventNote, Info, LightMode, DarkMode } from '@mui/icons-material';
 import { useTheme } from '../context/ThemeContext';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../firebase';
 import CourseCard from './CourseCard';
-import WeeklyCalendar from './WeeklyCalendar';
 import RegulationsInfo from './RegulationsInfo';
 import { courses, onlineCourses } from '../data/courses';
 
 const Dashboard = ({ userId, username, onLogout }) => {
   const { isDark, toggleTheme, theme } = useTheme();
   const [kullaniciVerisi, setKullaniciVerisi] = useState(null);
-  const [takvimGoster, setTakvimGoster] = useState(false);
   const [aktifSekme, setAktifSekme] = useState(0);
   const [yonetmelikGoster, setYonetmelikGoster] = useState(false);
 
@@ -197,14 +195,7 @@ const Dashboard = ({ userId, username, onLogout }) => {
         </Box>
       </AppBar>
 
-      {takvimGoster ? (
-        <WeeklyCalendar 
-          userData={kullaniciVerisi}
-          updateAbsence={devamsizlikGuncelle}
-          onClose={() => setTakvimGoster(false)}
-        />
-      ) : (
-        <Box sx={{ p: 3, maxWidth: 800, mx: 'auto', position: 'relative', zIndex: 1 }}>
+      <Box sx={{ p: 3, maxWidth: 800, mx: 'auto', position: 'relative', zIndex: 1 }}>
           {aktifSekme == 0 ? (
             <>
               <Box sx={{ textAlign: 'center', mb: 4 }}>
@@ -484,31 +475,6 @@ const Dashboard = ({ userId, username, onLogout }) => {
             </>
           )}
         </Box>
-      )}
-
-      {aktifSekme == 0 && (
-        <Fab
-          color="primary"
-          sx={{ 
-            position: 'fixed', 
-            bottom: 24, 
-            right: 24,
-            background: 'linear-gradient(135deg, #1976d2 0%, #1565c0 100%)',
-            boxShadow: '0 12px 30px rgba(25,118,210,0.4)',
-            '&:hover': {
-              background: 'linear-gradient(135deg, #1565c0 0%, #0d47a1 100%)',
-              transform: 'scale(1.1)',
-              boxShadow: '0 16px 40px rgba(25,118,210,0.5)'
-            },
-            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-            width: 64,
-            height: 64
-          }}
-          onClick={() => setTakvimGoster(!takvimGoster)}
-        >
-          <CalendarMonth sx={{ fontSize: 28 }} />
-        </Fab>
-      )}
 
       <RegulationsInfo 
         open={yonetmelikGoster}

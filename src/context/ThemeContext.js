@@ -13,6 +13,12 @@ export const ThemeProvider = ({ children }) => {
 
   useEffect(() => {
     localStorage.setItem('theme', isDark ? 'dark' : 'light');
+    
+    // Mobile theme color update
+    const metaTheme = document.querySelector('meta[name="theme-color"]');
+    if (metaTheme) {
+      metaTheme.content = isDark ? '#1a1a2e' : '#1976d2';
+    }
   }, [isDark]);
 
   const temaDegistir = () => setIsDark(!isDark)

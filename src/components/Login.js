@@ -4,6 +4,7 @@ import { Visibility, VisibilityOff, Person, Lock } from '@mui/icons-material';
 import { doc, setDoc, query, where, collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
 import InitialDataDialog from './InitialDataDialog';
+import TermsDialog from './TermsDialog';
 
 const Login = ({ onLogin }) => {
   var [kullaniciAdi, setKullaniciAdi] = useState('');
@@ -15,6 +16,7 @@ const Login = ({ onLogin }) => {
   const [ilkVeriDialog, setIlkVeriDialog] = useState(false);
   const [bekleyenId, setBekleyenId] = useState(null);
   const [sifreGoster, setSifreGoster] = useState(false);
+  const [termsDialog, setTermsDialog] = useState(false);
 
   const formGonder = async (e) => {
     e.preventDefault();
@@ -50,7 +52,7 @@ const Login = ({ onLogin }) => {
         
         var yeniId = Date.now().toString();
         setBekleyenId(yeniId)
-        setIlkVeriDialog(true);
+        setTermsDialog(true);
         setYukleniyor(false);
       } else {
         var q = query(collection(db, 'users'), where('username', '==', kullaniciAdi), where('password', '==', sifre));
@@ -277,6 +279,19 @@ const Login = ({ onLogin }) => {
           </Button>
         </form>
       </Paper>
+      
+      <TermsDialog
+        open={termsDialog}
+        onAccept={() => {
+          setTermsDialog(false);
+          setIlkVeriDialog(true);
+        }}
+        onReject={() => {
+          setTermsDialog(false);
+          setBekleyenId(null);
+          setHata('Kullanım şartlarını kabul etmelisiniz');
+        }}
+      />
       
       <InitialDataDialog 
         open={ilkVeriDialog}
