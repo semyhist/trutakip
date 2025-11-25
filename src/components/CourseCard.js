@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardContent, Typography, Switch, FormControlLabel, Box, IconButton, Paper, Button } from '@mui/material';
-import { Add, Remove, Schedule, TrendingUp, Warning, CheckCircle } from '@mui/icons-material';
+import { Remove, Schedule, TrendingUp, Warning, CheckCircle } from '@mui/icons-material';
 import { useTheme } from '../context/ThemeContext';
 import { dayNames } from '../data/courses';
 

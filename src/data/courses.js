@@ -12,11 +12,12 @@ export const courses = {
   },
   physics: { 
     name: 'Genel Fizik', 
-    weeklyHours: 2, 
-    totalHours: 30, 
-    limit: 9,
+    weeklyHours: 4, 
+    totalHours: 60, 
+    limit: 18,
     credit: 3.5,
     schedule: [
+      { day: 'tuesday', time: '08:00-10:00', hours: 2 },
       { day: 'wednesday', time: '15:00-17:00', hours: 2 }
     ]
   },
@@ -91,6 +92,7 @@ export const courses = {
 };
 
 export const dayNames = {
+  monday: 'Pazartesi',
   tuesday: 'Salı',
   wednesday: 'Çarşamba', 
   thursday: 'Perşembe',
